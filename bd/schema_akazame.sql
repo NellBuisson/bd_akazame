@@ -194,12 +194,39 @@ CREATE OR REPLACE TABLE `Integrations` (
     `nom` VARCHAR(20),
     `prenom` VARCHAR(20),
     FOREIGN KEY(`groupe`) REFERENCES groupes(`numero`),
-    CONSTRAINT identite FOREIGN KEY(`nom`, `prenom`) REFERENCES personnes(`nom`,`prenom`),
-    PRIMARY KEY(`groupe`,(`nom`,`prenom`))
+    FOREIGN KEY(`nom`, `prenom`) REFERENCES personnes(`nom`,`prenom`),
+    PRIMARY KEY(`groupe`, `nom`,`prenom`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-----------------------------------------------
+-- Structure table Mariages
+CREATE OR REPLACE TABLE `Mariages` (
+    `nom1` VARCHAR(20), 
+    `prenom1` VARCHAR(20), 
+    `nom2`VARCHAR(20),
+    `prenom2`VARCHAR(20),
+    `nommariage` VARCHAR(20),
+    `datedeb` date,
+    `datefin` date,
+    FOREIGN KEY(`nom1`, `prenom1`) REFERENCES personnes(`nom`,`prenom`),
+    FOREIGN KEY(`nom2`, `prenom2`) REFERENCES personnes(`nom`,`prenom`),
+    PRIMARY KEY(`nom1`,`prenom1`,`nom2`, `prenom2`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-----------------------------------------------
+-- Structure table Etudes_Faites
 
+CREATE OR REPLACE TABLE `Etudes_Faites`(
+    `nom` VARCHAR(20),
+    `prenom` VARCHAR(20),
+    `etude` VARCHAR(20),
+    `datedeb` date,
+    `datefin` date,
+    `diplome` bool,
+    FOREIGN KEY(`nom`, `prenom`) REFERENCES personnes(`nom`,`prenom`),
+    FOREIGN KEY(`etude`) REFERENCES etudes(`nometude`),
+    PRIMARY KEY(`nom`,`prenom`,`etude`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 
