@@ -39,7 +39,6 @@ CREATE OR REPLACE TABLE `Personnes` (
     `piercing` VARCHAR(100),
     PRIMARY KEY (`nom`,`prenom`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-    
 
 -----------------------------------------------
 -- Structure table Metiers
@@ -108,7 +107,7 @@ CREATE OR REPLACE TABLE `Villes` (
     `nomville` VARCHAR(20),
     `superficie` float, 
     `pop` INT,
-    `nzone` INT NOT NULL,
+    `zone` INT NOT NULL,
     PRIMARY KEY (`nomville`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -117,7 +116,7 @@ CREATE OR REPLACE TABLE `Villes` (
 
 CREATE OR REPLACE TABLE `Races` (
     `nomrace` VARCHAR(20),
-    `descriptrace` VARCHAR(100),
+    `descript` VARCHAR(100),
     `espece` VARCHAR(20) NOT NULL,
     PRIMARY KEY (`nomrace`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -206,7 +205,7 @@ CREATE OR REPLACE TABLE `Mariages` (
     `nom2`VARCHAR(20),
     `prenom2`VARCHAR(20),
     `nommariage` VARCHAR(20),
-    `datedeb` date,
+    `datedeb` date NOT NULL,
     `datefin` date,
     FOREIGN KEY(`nom1`, `prenom1`) REFERENCES personnes(`nom`,`prenom`),
     FOREIGN KEY(`nom2`, `prenom2`) REFERENCES personnes(`nom`,`prenom`),
@@ -214,13 +213,13 @@ CREATE OR REPLACE TABLE `Mariages` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -----------------------------------------------
--- Structure table Etudes_Faites
+-- Structure table Etudes Faites
 
 CREATE OR REPLACE TABLE `Etudes_Faites`(
     `nom` VARCHAR(20),
     `prenom` VARCHAR(20),
     `etude` VARCHAR(20),
-    `datedeb` date,
+    `datedeb` date NOT NULL,
     `datefin` date,
     `diplome` bool,
     FOREIGN KEY(`nom`, `prenom`) REFERENCES personnes(`nom`,`prenom`),
@@ -228,10 +227,102 @@ CREATE OR REPLACE TABLE `Etudes_Faites`(
     PRIMARY KEY(`nom`,`prenom`,`etude`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-----------------------------------------------
+-- Structure table Travails
 
+CREATE OR REPLACE TABLE `Travails`(
+    `nom` VARCHAR(20),
+    `prenom` VARCHAR(20),
+    `metier` VARCHAR(20),
+    `compagnie` VARCHAR(20),
+    `datedeb` date NOT NULL,
+    `datefin` date,
+    FOREIGN KEY(`nom`,`prenom`) REFERENCES personnes(`nom`,`prenom`),
+    FOREIGN KEY(`metier`) REFERENCES metiers(`nommetier`),
+    FOREIGN KEY(`compagnie`) REFERENCES compagnies(`nomcomp`),
+    PRIMARY KEY(`nom`,`prenom`,`metier`,`compagnie`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-----------------------------------------------
+-- Structure table Productions
 
+CREATE OR REPLACE TABLE `Productions` (
+    `compagnie` VARCHAR(20),
+    `activite` VARCHAR(20),
+    `datedeb` date NOT NULL,
+    `datefin` date,
+    FOREIGN KEY(`activite`) REFERENCES activites(`nomactivite`),
+    FOREIGN KEY(`compagnie`) REFERENCES compagnies(`nomcomp`),
+    PRIMARY KEY(`activite`,`compagnie`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-----------------------------------------------
+-- Structure table Amusements
 
+CREATE OR REPLACE TABLE `Amusements`(
+    `loisir` VARCHAR(20),
+    `prenom` VARCHAR(20),
+    `nom`  VARCHAR(20),
+    `datedeb` date NOT NULL,
+    `datefin` date,
+    FOREIGN KEY(`nom`,`prenom`) REFERENCES personnes(`nom`,`prenom`),
+    FOREIGN KEY(`loisir`) REFERENCES passetemps(`nomhobby`),
+    PRIMARY KEY(`nom`,`prenom`,`loisir`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-----------------------------------------------
+-- Structure table Adoptions
 
+CREATE OR REPLACE TABLE `Adoptions`(
+    `animal` VARCHAR(20),
+    `prenom` VARCHAR(20),
+    `nom`  VARCHAR(20),
+    `datedeb` date NOT NULL,
+    FOREIGN KEY(`nom`,`prenom`) REFERENCES personnes(`nom`,`prenom`),
+    FOREIGN KEY(`animal`) REFERENCES animaux(`nom`),
+    PRIMARY KEY(`nom`,`prenom`,`animal`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-----------------------------------------------
+-- Structure table Emplois Animaliers
+
+CREATE OR REPLACE TABLE `Emplois_Animaliers`(
+    `animal` VARCHAR(20),
+    `metier` VARCHAR(20),
+    `datedeb` date NOT NULL,
+    FOREIGN KEY(`animal`) REFERENCES animaux(`nom`),
+    FOREIGN KEY(`metier`) REFERENCES metiers(`nommetier`),
+    PRIMARY KEY(`animal`,`metier`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-----------------------------------------------
+-- Structure table Résidences
+
+CREATE OR REPLACE TABLE `Residences`(
+    `ville` VARCHAR(20),
+    `prenom` VARCHAR(20),
+    `nom`  VARCHAR(20),
+    `datedeb` date NOT NULL,
+    FOREIGN KEY(`nom`,`prenom`) REFERENCES personnes(`nom`,`prenom`),
+    FOREIGN KEY(`ville`) REFERENCES villes(`nomville`),
+    PRIMARY KEY(`nom`,`prenom`,`ville`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-----------------------------------------------
+-- Structure table 
+
+CREATE OR REPLACE TABLE ``(
+
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+-----------------------------------------------
+-- Structure table 
+
+CREATE OR REPLACE TABLE ``(
+
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+-----------------------------------------------
+-- Structure table 
+
+CREATE OR REPLACE TABLE ``(
+
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
