@@ -339,7 +339,7 @@ CREATE OR REPLACE TABLE `Connexions`(
     `datefin` date,
     FOREIGN KEY(`compagnie1`) REFERENCES compagnies(`nomcomp`),
     FOREIGN KEY(`compagnie2`) REFERENCES compagnies(`nomcomp`),
-    PRIMARY KEY(`compagnie1`,`compagnie2`, `type`)
+-    PRIMARY KEY(`compagnie1`,`compagnie2`, `type`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -----------------------------------------------
@@ -351,4 +351,69 @@ ALTER TABLE personnes
     ADD CONSTRAINT personnes_naissance CHECK(datenaissance < datemort),
     ADD CONSTRAINT personnes_sexe CHECK(sexe = "féminin" OR "masculin"),
     ADD CONSTRAINT personnes_taille CHECK(taille < 220)
+;
+
+----------------------------------------------
+-- Contrainte table Evenements
+
+ALTER TABLE evenements
+    ADD CONSTRAINT evenements_chronologie CHECK(datedeb < datefin)
+;
+
+
+----------------------------------------------
+-- Contrainte table Animaux
+
+ALTER TABLE animaux 
+    ADD CONSTRAINT animaux_sexe CHECK(sexe = "féminin" OR "masculin"),
+    ADD CONSTRAINT animaux_naissance CHECK(datenaissance < datemort)
+;
+
+----------------------------------------------
+-- Contrainte table Connexions
+
+ALTER TABLE connexions
+    ADD CONSTRAINT connexions_chronologie CHECK(datedeb < datefin)
+;
+
+----------------------------------------------
+-- Contrainte table Productions
+
+ALTER TABLE productions
+    ADD CONSTRAINT productions_chronologie CHECK(datedeb < datefin)
+;
+
+----------------------------------------------
+-- Contrainte table Amusements
+
+ALTER TABLE amusements
+    ADD CONSTRAINT amusements_chronologie CHECK(datedeb < datefin)
+;
+
+----------------------------------------------
+-- Contrainte table Etudes
+
+ALTER TABLE etudes_faites
+    ADD CONSTRAINT etudes_chronologie CHECK(datedeb < datefin)
+;
+
+----------------------------------------------
+-- Contrainte table Mariages
+
+ALTER TABLE mariages
+    ADD CONSTRAINT mariages_chronologie CHECK(datedeb < datefin)
+;
+
+----------------------------------------------
+-- Contrainte table Travails
+
+ALTER TABLE travails
+    ADD CONSTRAINT travails_chronologie CHECK(datedeb < datefin)
+;
+
+----------------------------------------------
+-- Contrainte table Batiments
+
+ALTER TABLE batiments
+    ADD CONSTRAINT batiments_cardinalite CHECK(cardinalite = "nord" OR "sud" OR "est" OR "ouest" OR "nord-est" OR "nord-ouest" OR "sud-est" OR "sud-ouest")
 ;
