@@ -309,20 +309,35 @@ CREATE OR REPLACE TABLE `Residences`(
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -----------------------------------------------
--- Structure table 
+-- Structure table Lignages
 
-CREATE OR REPLACE TABLE ``(
-
+CREATE OR REPLACE TABLE `Lignages`(
+    `race` VARCHAR(20),
+    `espece` VARCHAR(20),
+    FOREIGN KEY(`race`) REFERENCES races(`nomrace`),
+    FOREIGN KEY(`espece`) REFERENCES especes(`nomespece`),
+    PRIMARY KEY(`race`,`espece`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -----------------------------------------------
--- Structure table 
+-- Structure table Localisations
 
-CREATE OR REPLACE TABLE ``(
-
+CREATE OR REPLACE TABLE `Localisations`(
+    `evenement` VARCHAR(20),
+    `zone` INT,
+    FOREIGN KEY(`evenement`) REFERENCES evenements(`nomevent`),
+    FOREIGN KEY(`zone`) REFERENCES zones(`numzone`),
+    PRIMARY KEY(`evenement`,`zone`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -----------------------------------------------
--- Structure table 
+-- Structure table Connexions
 
-CREATE OR REPLACE TABLE ``(
-
+CREATE OR REPLACE TABLE `Connexions`(
+    `compagnie1` VARCHAR(20),
+    `compagnie2` VARCHAR(20),
+    `type` VARCHAR(20),
+    `datedeb` date NOT NULL,
+    `datefin` date,
+    FOREIGN KEY(`compagnie1`) REFERENCES compagnies(`nomcomp`),
+    FOREIGN KEY(`compagnie2`) REFERENCES compagnies(`nomcomp`),
+    PRIMARY KEY(`compagnie1`,`compagnie2`, `type`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
