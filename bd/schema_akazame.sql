@@ -341,3 +341,14 @@ CREATE OR REPLACE TABLE `Connexions`(
     FOREIGN KEY(`compagnie2`) REFERENCES compagnies(`nomcomp`),
     PRIMARY KEY(`compagnie1`,`compagnie2`, `type`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-----------------------------------------------
+---------- Contrainte d'intégrité -------------
+-----------------------------------------------
+-- Contrainte table Personnes
+
+ALTER TABLE personnes 
+    ADD CONSTRAINT personnes_naissance CHECK(datenaissance < datemort),
+    ADD CONSTRAINT personnes_sexe CHECK(sexe = "féminin" OR "masculin"),
+    ADD CONSTRAINT personnes_taille CHECK(taille < 220)
+;
